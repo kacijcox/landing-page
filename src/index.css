@@ -6,7 +6,6 @@
   background-color: black;
   font-family: "Jura", sans-serif;
   color: whitesmoke;
-  cursor: crosshair;
 }
 
 .content {
@@ -23,6 +22,16 @@
 
 .links a:hover {
   color: gold;
+  cursor: crosshair;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .header {
@@ -31,42 +40,29 @@
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: .15em;
-  animation: typing 3.5s steps(20,end);
   padding-top: 20px;
   text-align: center;
-  font-size: 60px;
+  font-size: 35px;
+  animation: typewriter 3s steps(40) 1s forwards; /* Adjust duration and steps as needed */
 }
 
-@keyframes typing {
-  from { width: 0% }
-  to { width: 100% }
+/* Media query for screens with a maximum width of 380px */
+@media only screen and (max-width: 380px) {
+  .header {
+    font-size: 30px;
+  }
+
+  .intro {
+    font-size: 25px;
+  }
 }
 
 .intro {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
 }
 
 .socials {
- text-align: center;
-}
-
-
-@media (max-width: 1024px) {
-  .content {
-    padding: 20px; 
-  }
-  
-  .header {
-    font-size: 40px; 
-  }
-  
-  .intro {
-    font-size: 20px; 
-  }
-}
-
-@media (min-width: 1025px) {
-  
+  text-align: center;
 }

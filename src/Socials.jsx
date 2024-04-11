@@ -1,3 +1,5 @@
+import './Socials.css'
+
 const Socials = () => {
     return ( 
         <div className="socials">
@@ -19,11 +21,13 @@ const Socials = () => {
             </svg>
             </a>
             <div style={{ marginBottom: '20px' }} />
-            <h2>skills</h2>
-            <img src="https://skillicons.dev/icons?i=html,css,js,react" alt="My Skills" />
+        <div className='skill-container'>
+            <h2 className>skills</h2>
+            <img src="https://skillicons.dev/icons?i=html,css,js,react" id="socials-icon" alt="My Skills" />
             <div style={{ marginBottom: '20px' }} />
             <h2>hobbies</h2>
-            <img src="https://skillicons.dev/icons?i=linux,raspberrypi,kali" alt="My Hobbies" />
+            <img src="https://skillicons.dev/icons?i=linux,raspberrypi,kali" id="socials-icon" alt="My Hobbies" />
+        </div>
         </div>
      );
 }
