@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import Header from './Header';
-import Socials from './Socials';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Socials from './components/Socials';
+import ContactMe from './components/ContactMe';
 
 function App() {
-  const link = "https://www.github.com/kacijcox";
 
   return (
     <div className="container text-center">
@@ -21,6 +21,11 @@ function App() {
         </div>
         <div className="col-md-4 pt-4"> 
           <Socials />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-mx-auto mt-5">
+          <ContactMe />
         </div>
       </div>
       <div className="row">

@@ -43,10 +43,9 @@
   padding-top: 20px;
   text-align: center;
   font-size: 35px;
-  animation: typewriter 3s steps(40) 1s forwards; /* Adjust duration and steps as needed */
+  animation: typewriter 3s steps(40) 1s forwards; 
 }
 
-/* Media query for screens with a maximum width of 380px */
 @media only screen and (max-width: 380px) {
   .header {
     font-size: 30px;
