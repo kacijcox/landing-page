@@ -4,9 +4,12 @@
     font-size: 40px;
     font-style: bold;
     font-weight: 500px;
+    cursor: crosshair;
+
 
 }
 
 .email-link:hover {
     color: gray; /* Change color on hover */
 }
+
