@@ -24,10 +24,8 @@ const Socials = () => {
             <div style={{ marginBottom: '20px' }} />
         <div className='skill-container'>
             <h2 className>skills</h2>
-            <img src="https://skillicons.dev/icons?i=html,css,js,react" id="socials-icon" alt="My Skills" />
+            <img src="https://skillicons.dev/icons?i=html,css,js,react,bootstrap,linux,jquery,nginx,vercel" id="socials-icon" alt="My Skills" />
             <div style={{ marginBottom: '20px' }} />
-            <h2>hobbies</h2>
-            <img src="https://skillicons.dev/icons?i=linux,raspberrypi,kali" id="socials-icon" alt="My Hobbies" />
         </div>
         </div>
      );
