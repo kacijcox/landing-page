@@ -37,17 +37,13 @@ function getIP(request) {
       });
     }
    
-    // Otherwise, record this request and proceed
     ipRequestCounts[clientIP].push(now);
    
-    // Continue to the next middleware or to the requested resource
     return Response.next();
   }
   
-  // Configure which paths this middleware should run on
   export const config = {
     matcher: [
-      // Apply to all paths except static files, images, etc.
       '/((?!_next/static|_next/image|favicon.ico|public/|api/).*)'
     ]
   };
