@@ -8,7 +8,7 @@ function getIP(request) {
   
   const ipRequestCounts = {};
   const windowMs = 60 * 1000; // 1 minute window
-  const maxRequests = 10; // Maximum requests per minute per IP
+  const maxRequests = 50; // Maximum requests per minute per IP
   
   export default function middleware(request) {
     // Get the client IP
