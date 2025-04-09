@@ -1,8 +1,7 @@
 // middleware.js
-
 function getIP(request) {
-    return request.headers.get('x-forwarded-for') || 
-           request.headers.get('x-real-ip') || 
+    return request.headers.get('x-forwarded-for') ||
+           request.headers.get('x-real-ip') ||
            'unknown';
   }
   
@@ -11,19 +10,22 @@ function getIP(request) {
   const maxRequests = 50; // Maximum requests per minute per IP
   
   export default function middleware(request) {
+    // Log for debugging
+    console.log('Middleware executed for path:', request.nextUrl.pathname);
+    
     // Get the client IP
     const clientIP = getIP(request);
     const now = Date.now();
-    
+   
     // Initialize or clean old requests for this IP
     ipRequestCounts[clientIP] = ipRequestCounts[clientIP] || [];
     ipRequestCounts[clientIP] = ipRequestCounts[clientIP].filter(
       timestamp => now - timestamp < windowMs
     );
-    
+   
     // Count requests in the current time window
     const requestCount = ipRequestCounts[clientIP].length;
-    
+   
     // If too many requests, return 429 Too Many Requests
     if (requestCount >= maxRequests) {
       return new Response('Too Many Requests', {
@@ -34,10 +36,10 @@ function getIP(request) {
         }
       });
     }
-    
+   
     // Otherwise, record this request and proceed
     ipRequestCounts[clientIP].push(now);
-    
+   
     // Continue to the next middleware or to the requested resource
     return Response.next();
   }
