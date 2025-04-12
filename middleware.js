@@ -1,9 +1,8 @@
 // middleware.js
-
-const ipRequestCounts = {};
+ipRequestCounts = {};
 const requestTimes = {};
 const windowMs = 60 * 1000; // 1 minute window
-const maxRequests = 15; // max requests per minute per IP
+const maxRequests = 15; // maximum requests per minute per IP
 
 // helper function to get client IP
 function getIP(request) {
@@ -13,7 +12,7 @@ function getIP(request) {
 }
 
 export default function middleware(request) {
-  console.log('security middleware executed for path:', request.nextUrl.pathname);
+  console.log('Security middleware executed for path:', request.nextUrl.pathname);
   
   // get the client IP
   const clientIP = getIP(request);
@@ -22,8 +21,10 @@ export default function middleware(request) {
   // === BOT DETECTION LOGIC ===
   // check for suspicious user agent
   const userAgent = request.headers.get('user-agent') || '';
-  if (!userAgent || userAgent.length < 20) {
-    console.log('bot detected: suspicious user agent');
+  
+  // only block if user agent is missing entirely
+  if (!userAgent) {
+    console.log('bot detected: missing user agent');
     return new Response('access denied: bot detected', {
       status: 403,
       headers: {
@@ -32,16 +33,23 @@ export default function middleware(request) {
     });
   }
   
-  // check for bot patterns in user agent
-  const botPatterns = [
-    /^bot/i, /^crawl/i, /^spider/i, /scrape/i, 
-    /phantom/i, /selenium/i, /puppeteer/i
+  // check for specific bot patterns in user agent
+  const obviousBotPatterns = [
+    /^bot\b/i, 
+    /^crawl\b/i, 
+    /^spider\b/i, 
+    /\bscraper\b/i,
+    /^curl\//i,
+    /^python-requests/i,
+    /^scrapebot/i,
+    /^wget/i,
+    /^postman/i
   ];
   
-  if (botPatterns.some(pattern => pattern.test(userAgent))) {
-    // allow legitimate bots like google
+  if (obviousBotPatterns.some(pattern => pattern.test(userAgent))) {
+    // still allow legitimate bots like google
     if (!/googlebot|bingbot|yandexbot/i.test(userAgent)) {
-      console.log('bot detected: bot pattern in user agent');
+      console.log('Bot detected: Obvious bot pattern in user agent');
       return new Response('access denied: bot detected', {
         status: 403,
         headers: {
@@ -50,14 +58,6 @@ export default function middleware(request) {
       });
     }
   }
-  
-  // check for consistent timing patterns
-  requestTimes[clientIP] = requestTimes[clientIP] || [];
-  requestTimes[clientIP].push(now);
-  
-  // keep only recent requests
-  const recentRequests = requestTimes[clientIP].filter(time => now - time < windowMs);
-  requestTimes[clientIP] = recentRequests;
   
   // === RATE LIMITING LOGIC ===
   // initialize or clean old requests for this IP
@@ -69,9 +69,9 @@ export default function middleware(request) {
   // count requests in the current time window
   const requestCount = ipRequestCounts[clientIP].length;
   
-  // if too many requests, return 429 too many requests
+  // if too many requests, return 429
   if (requestCount >= maxRequests) {
-    return new Response('too Many Requests', {
+    return new Response('too many requests', {
       status: 429,
       headers: {
         'Content-Type': 'text/plain',
