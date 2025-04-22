@@ -7,7 +7,7 @@ const Navbar = () => {
             <hr />
             <p className="navbar-title">projects</p>
             <a href="https://sage-stop-nine.vercel.app/">sage stop</a>
-            <a href="luxury-bridal.vercel.app">the luxury bridal</a>
+            <a href="https://luxury-bridal.vercel.app">the luxury bridal</a>
             <hr />
         </div>
     );
